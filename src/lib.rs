@@ -29,6 +29,7 @@ mod associated_type;
 mod block;
 mod body;
 mod bound;
+mod consts;
 mod docs;
 mod field;
 mod fields;
@@ -49,6 +50,7 @@ mod r#type;
 
 pub use associated_type::*;
 pub use block::*;
+pub use consts::*;
 pub use field::*;
 pub use formatter::*;
 pub use function::*;

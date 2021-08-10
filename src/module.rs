@@ -1,5 +1,6 @@
 use std::fmt::{self, Write};
 
+use crate::consts::Const;
 use crate::docs::Docs;
 use crate::formatter::Formatter;
 use crate::function::Function;
@@ -54,6 +55,17 @@ impl Module {
     /// module.
     pub fn import(&mut self, path: &str, ty: &str) -> &mut Self {
         self.scope.import(path, ty);
+        self
+    }
+
+    /// Push a new cost definition, returning a mutable reference to it.
+    pub fn new_const(&mut self, name: &str, ty: &str, value: &str) -> &mut Const {
+        self.scope.new_const(name, ty, value)
+    }
+
+    /// Push a const definition
+    pub fn push_const(&mut self, item: Const) -> &mut Self {
+        self.scope.push_const(item);
         self
     }
 

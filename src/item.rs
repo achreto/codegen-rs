@@ -1,3 +1,4 @@
+use crate::consts::Const;
 use crate::function::Function;
 use crate::module::Module;
 
@@ -15,4 +16,5 @@ pub enum Item {
     Enum(Enum),
     Impl(Impl),
     Raw(String),
+    Const(Const),
 }

@@ -2,6 +2,7 @@ use std::fmt::{self, Write};
 
 use indexmap::IndexMap;
 
+use crate::consts::Const;
 use crate::docs::Docs;
 use crate::formatter::Formatter;
 use crate::function::Function;
@@ -52,6 +53,22 @@ impl Scope {
             .or_insert(IndexMap::new())
             .entry(ty.to_string())
             .or_insert_with(|| Import::new(path, ty))
+    }
+
+    /// Push a new cost definition, returning a mutable reference to it.
+    pub fn new_const(&mut self, name: &str, ty: &str, value: &str) -> &mut Const {
+        self.push_const(Const::new(name, ty, value));
+
+        match self.items.last_mut().unwrap() {
+            Item::Const(v) => v,
+            _ => unreachable!(),
+        }
+    }
+
+    /// Push a const definition
+    pub fn push_const(&mut self, item: Const) -> &mut Self {
+        self.items.push(Item::Const(item));
+        self
     }
 
     /// Push a new module definition, returning a mutable reference to it.
@@ -248,6 +265,7 @@ impl Scope {
 
             match &item {
                 Item::Module(v) => v.fmt(fmt)?,
+                Item::Const(v) => v.fmt(fmt)?,
                 Item::Struct(v) => v.fmt(fmt)?,
                 Item::Function(v) => v.fmt(false, fmt)?,
                 Item::Trait(v) => v.fmt(fmt)?,
