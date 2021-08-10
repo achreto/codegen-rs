@@ -37,6 +37,7 @@ mod formatter;
 mod function;
 mod import;
 mod item;
+mod license;
 mod module;
 mod scope;
 mod type_def;

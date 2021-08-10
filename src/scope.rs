@@ -8,6 +8,7 @@ use crate::formatter::Formatter;
 use crate::function::Function;
 use crate::import::Import;
 use crate::item::Item;
+use crate::license::License;
 use crate::module::Module;
 
 use crate::r#enum::Enum;
@@ -23,6 +24,9 @@ pub struct Scope {
     /// Scope documentation
     docs: Option<Docs>,
 
+    /// Scope License
+    license: Option<License>,
+
     /// Imports
     imports: IndexMap<String, IndexMap<String, Import>>,
 
@@ -35,9 +39,22 @@ impl Scope {
     pub fn new() -> Self {
         Self {
             docs: None,
+            license: None,
             imports: IndexMap::new(),
             items: vec![],
         }
+    }
+
+    /// adds documentation to the scope
+    pub fn docs(&mut self, docs: &Docs) -> &mut Self {
+        self.docs = Some(docs.clone());
+        self
+    }
+
+    /// adds license information to the scope
+    pub fn license(&mut self, license: &License) -> &mut Self {
+        self.license = Some(license.clone());
+        self
     }
 
     /// Import a type into the scope.
@@ -252,6 +269,10 @@ impl Scope {
 
     /// Formats the scope using the given formatter.
     pub fn fmt(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
+        // documentation and license information
+        self.license.as_ref().map(|l| l.fmt(fmt));
+        self.docs.as_ref().map(|d| d.fmt(fmt));
+
         self.fmt_imports(fmt)?;
 
         if !self.imports.is_empty() {
