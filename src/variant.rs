@@ -1,8 +1,8 @@
 use std::fmt::{self, Write};
 
+use crate::docs::Docs;
 use crate::fields::Fields;
 use crate::formatter::Formatter;
-use crate::docs::Docs;
 use crate::r#type::Type;
 
 /// Defines an enum variant.

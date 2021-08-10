@@ -426,7 +426,9 @@ fn enum_with_non_exhaustive() {
         .new_enum("IpAddrKind")
         .push_variant(Variant::new("V4"))
         .push_variant(Variant::new("V6"));
-    ip_addr_kind_enum.type_def_mut().r#macro("#[non_exhaustive]");
+    ip_addr_kind_enum
+        .type_def_mut()
+        .r#macro("#[non_exhaustive]");
 
     let expect = r#"
 #[non_exhaustive]
