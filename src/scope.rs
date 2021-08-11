@@ -2,6 +2,7 @@ use std::fmt::{self, Write};
 
 use indexmap::IndexMap;
 
+use crate::comment::Comment;
 use crate::consts::Const;
 use crate::docs::Docs;
 use crate::formatter::Formatter;
@@ -10,7 +11,6 @@ use crate::import::Import;
 use crate::item::Item;
 use crate::license::License;
 use crate::module::Module;
-use crate::comment::Comment;
 
 use crate::r#enum::Enum;
 use crate::r#impl::Impl;
