@@ -10,6 +10,7 @@ use crate::import::Import;
 use crate::item::Item;
 use crate::license::License;
 use crate::module::Module;
+use crate::comment::Comment;
 
 use crate::r#enum::Enum;
 use crate::r#impl::Impl;
@@ -46,14 +47,14 @@ impl Scope {
     }
 
     /// adds documentation to the scope
-    pub fn docs(&mut self, docs: &Docs) -> &mut Self {
-        self.docs = Some(docs.clone());
+    pub fn docs(&mut self, docs: Docs) -> &mut Self {
+        self.docs = Some(docs);
         self
     }
 
     /// adds license information to the scope
-    pub fn license(&mut self, license: &License) -> &mut Self {
-        self.license = Some(license.clone());
+    pub fn license(&mut self, license: License) -> &mut Self {
+        self.license = Some(license);
         self
     }
 
@@ -229,6 +230,22 @@ impl Scope {
         self
     }
 
+    /// Push a new comment, returning a mutable reference to it.
+    pub fn new_comment(&mut self, comment: &str) -> &mut Comment {
+        self.push_comment(Comment::new(comment));
+
+        match *self.items.last_mut().unwrap() {
+            Item::Comment(ref mut v) => v,
+            _ => unreachable!(),
+        }
+    }
+
+    /// Push a comment
+    pub fn push_comment(&mut self, comment: Comment) -> &mut Self {
+        self.items.push(Item::Comment(comment));
+        self
+    }
+
     /// Push a new `impl` block, returning a mutable reference to it.
     pub fn new_impl(&mut self, target: &str) -> &mut Impl {
         self.push_impl(Impl::new(target));
@@ -285,6 +302,7 @@ impl Scope {
             }
 
             match &item {
+                Item::Comment(v) => v.fmt(fmt)?,
                 Item::Module(v) => v.fmt(fmt)?,
                 Item::Const(v) => v.fmt(fmt)?,
                 Item::Struct(v) => v.fmt(fmt)?,
