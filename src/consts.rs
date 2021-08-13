@@ -51,7 +51,7 @@ impl Const {
         self.ty.fmt(fmt)?;
 
         // write the value
-        write!(fmt, " = {};", self.value)?;
+        writeln!(fmt, " = {};", self.value)?;
 
         Ok(())
     }
