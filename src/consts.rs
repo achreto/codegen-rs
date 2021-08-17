@@ -11,6 +11,9 @@ pub struct Const {
     /// Constant type
     pub ty: Type,
 
+    /// Constant visibility
+    pub vis: Option<String>,
+
     /// Constant documentation
     pub documentation: Vec<String>,
 
@@ -27,6 +30,7 @@ impl Const {
         Self {
             name: name.into(),
             ty: ty.into(),
+            vis: None,
             documentation: Vec::new(),
             value: value.into(),
         }
@@ -38,6 +42,11 @@ impl Const {
         self
     }
 
+    /// Set the constant's visibility
+    pub fn vis(&mut self, vis: &str) {
+        self.vis = Some(String::from(vis));
+    }
+
     /// Formats the struct using the given formatter.
     pub fn fmt(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         // write the documentation
@@ -46,7 +55,11 @@ impl Const {
         }
 
         // write the name
-        write!(fmt, "{} : ", self.name)?;
+        match &self.vis {
+            Some(v) => write!(fmt, "{} const {} : ", v, self.name),
+            None => write!(fmt, "const {} : ", self.name),
+        }?;
+
         // write the type information
         self.ty.fmt(fmt)?;
 
