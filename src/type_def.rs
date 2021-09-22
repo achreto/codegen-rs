@@ -109,7 +109,7 @@ impl TypeDef {
 
     fn fmt_allow(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         for allow in &self.allow {
-            write!(fmt, "#[allow({})]\n", allow)?;
+            writeln!(fmt, "#[allow({})]", allow)?;
         }
 
         Ok(())

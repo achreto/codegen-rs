@@ -270,20 +270,6 @@ impl Scope {
         self
     }
 
-    /// Return a string representation of the scope.
-    pub fn to_string(&self) -> String {
-        let mut ret = String::new();
-
-        self.fmt(&mut Formatter::new(&mut ret)).unwrap();
-
-        // Remove the trailing newline
-        if ret.as_bytes().last() == Some(&b'\n') {
-            ret.pop();
-        }
-
-        ret
-    }
-
     /// Formats the scope using the given formatter.
     pub fn fmt(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         // documentation and license information
@@ -351,24 +337,49 @@ impl Scope {
 
                     write!(fmt, "use {}::", path)?;
 
-                    if tys.len() > 1 {
-                        write!(fmt, "{{")?;
-
-                        for (i, ty) in tys.iter().enumerate() {
-                            if i != 0 {
-                                write!(fmt, ", ")?;
-                            }
-                            write!(fmt, "{}", ty)?;
+                    match tys.len() {
+                        0 => {}
+                        1 => {
+                            writeln!(fmt, "{};", tys[0])?;
                         }
+                        _ => {
+                            write!(fmt, "{{")?;
 
-                        writeln!(fmt, "}};")?;
-                    } else if tys.len() == 1 {
-                        writeln!(fmt, "{};", tys[0])?;
+                            for (i, ty) in tys.iter().enumerate() {
+                                if i != 0 {
+                                    write!(fmt, ", ")?;
+                                }
+                                write!(fmt, "{}", ty)?;
+                            }
+
+                            writeln!(fmt, "}};")?;
+                        }
                     }
                 }
             }
         }
 
         Ok(())
+    }
+}
+
+impl Default for Scope {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl fmt::Display for Scope {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut ret = String::new();
+
+        self.fmt(&mut Formatter::new(&mut ret)).unwrap();
+
+        // Remove the trailing newline
+        if ret.as_bytes().last() == Some(&b'\n') {
+            ret.pop();
+        }
+
+        write!(f, "{}", ret)
     }
 }

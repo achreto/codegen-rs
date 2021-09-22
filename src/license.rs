@@ -11,7 +11,7 @@ pub enum LicenseType {
     Bsd,
 }
 
-const MIT_LICENSE_TEXT: &'static str = "MIT License
+const MIT_LICENSE_TEXT: &str = "MIT License
 
 {}
 
@@ -33,7 +33,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.";
 
-const BSD_LICENSE_TEXT: &'static str = "";
+const BSD_LICENSE_TEXT: &str = "";
 
 /// represents the license information
 #[derive(Debug, Clone)]

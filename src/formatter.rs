@@ -62,7 +62,7 @@ impl<'a> Formatter<'a> {
 
     fn push_spaces(&mut self) {
         for _ in 0..self.spaces {
-            self.dst.push_str(" ");
+            self.dst.push(' ');
         }
     }
 }
@@ -74,7 +74,7 @@ impl<'a> fmt::Write for Formatter<'a> {
 
         for line in s.lines() {
             if !first {
-                self.dst.push_str("\n");
+                self.dst.push('\n');
             }
 
             first = false;
@@ -92,7 +92,7 @@ impl<'a> fmt::Write for Formatter<'a> {
         }
 
         if s.as_bytes().last() == Some(&b'\n') {
-            self.dst.push_str("\n");
+            self.dst.push('\n');
         }
 
         Ok(())

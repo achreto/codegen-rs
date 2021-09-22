@@ -1,7 +1,7 @@
 use std::fmt::{self, Write};
 
 use crate::consts::Const;
-use crate::docs::Docs;
+//use crate::docs::Docs;
 use crate::formatter::Formatter;
 use crate::function::Function;
 use crate::scope::Scope;
@@ -21,7 +21,7 @@ pub struct Module {
     vis: Option<String>,
 
     /// Module documentation
-    docs: Option<Docs>,
+    // docs: Option<Docs>,
 
     /// Contents of the module
     scope: Scope,
@@ -33,7 +33,7 @@ impl Module {
         Self {
             name: name.to_string(),
             vis: None,
-            docs: None,
+            // docs: None,
             scope: Scope::new(),
         }
     }

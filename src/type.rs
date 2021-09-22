@@ -95,7 +95,7 @@ impl From<&String> for Type {
     }
 }
 
-impl From<&Type> for Type {
+impl From<&Self> for Type {
     fn from(src: &Self) -> Self {
         src.clone()
     }

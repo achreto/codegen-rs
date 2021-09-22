@@ -1,17 +1,16 @@
 /// Defines an import (`use` statement).
 #[derive(Debug, Clone)]
 pub struct Import {
-    line: String,
-
+    // line: String,
     /// Function visibility
     pub vis: Option<String>,
 }
 
 impl Import {
     /// Return a new import.
-    pub fn new(path: &str, ty: &str) -> Self {
+    pub const fn new(_path: &str, _ty: &str) -> Self {
         Self {
-            line: format!("{}::{}", path, ty),
+            // line: format!("{}::{}", path, ty),
             vis: None,
         }
     }
