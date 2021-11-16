@@ -51,6 +51,9 @@ pub struct Function {
 
     /// Whether or not this function is `async` or not
     r#async: bool,
+
+    /// Whether or not this function is `async` or not
+    r#unsafe: bool,
 }
 
 impl Function {
@@ -70,6 +73,7 @@ impl Function {
             attributes: vec![],
             extern_abi: None,
             r#async: false,
+            r#unsafe: false,
         }
     }
 
@@ -94,6 +98,12 @@ impl Function {
     /// Set whether this function is async or not
     pub fn set_async(&mut self, r#async: bool) -> &mut Self {
         self.r#async = r#async;
+        self
+    }
+
+    /// Set whether this function is unsafe or not
+    pub fn set_unsafe(&mut self, r#unsafe: bool) -> &mut Self {
+        self.r#unsafe = r#unsafe;
         self
     }
 
@@ -239,6 +249,10 @@ impl Function {
 
         if self.r#async {
             write!(fmt, "async ")?;
+        }
+
+        if self.r#unsafe {
+            write!(fmt, "unsafe ")?;
         }
 
         write!(fmt, "fn {}", self.name)?;
