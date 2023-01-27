@@ -66,12 +66,12 @@ impl Fields {
                     for f in fields {
                         if !f.documentation.is_empty() {
                             for doc in &f.documentation {
-                                writeln!(fmt, "/// {}", doc)?;
+                                writeln!(fmt, "/// {doc}")?;
                             }
                         }
                         if !f.annotation.is_empty() {
                             for ann in &f.annotation {
-                                writeln!(fmt, "{}", ann)?;
+                                writeln!(fmt, "{ann}")?;
                             }
                         }
                         write!(fmt, "{}: ", f.name)?;

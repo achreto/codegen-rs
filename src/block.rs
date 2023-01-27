@@ -45,7 +45,7 @@ impl Block {
     /// Formats the block using the given formatter.
     pub fn fmt(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         if let Some(ref before) = self.before {
-            write!(fmt, "{}", before)?;
+            write!(fmt, "{before}")?;
         }
 
         // Inlined `Formatter::fmt`
@@ -67,7 +67,7 @@ impl Block {
         write!(fmt, "}}")?;
 
         if let Some(ref after) = self.after {
-            write!(fmt, "{}", after)?;
+            write!(fmt, "{after}")?;
         }
 
         writeln!(fmt)?;

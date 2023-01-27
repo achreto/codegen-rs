@@ -225,11 +225,11 @@ impl Function {
         }
 
         if let Some(allow) = &self.allow {
-            writeln!(fmt, "#[allow({})]", allow)?;
+            writeln!(fmt, "#[allow({allow})]")?;
         }
 
         for attr in self.attributes.iter() {
-            writeln!(fmt, "#[{}]", attr)?;
+            writeln!(fmt, "#[{attr}]")?;
         }
 
         if is_trait {
@@ -240,11 +240,11 @@ impl Function {
         }
 
         if let Some(vis) = &self.vis {
-            write!(fmt, "{} ", vis)?;
+            write!(fmt, "{vis} ")?;
         }
 
         if let Some(extern_abi) = &self.extern_abi {
-            write!(fmt, "extern \"{extern_abi}\" ", extern_abi = extern_abi)?;
+            write!(fmt, "extern \"{extern_abi}\" ")?;
         }
 
         if self.r#async {
@@ -261,7 +261,7 @@ impl Function {
         write!(fmt, "(")?;
 
         if let Some(s) = &self.arg_self {
-            write!(fmt, "{}", s)?;
+            write!(fmt, "{s}")?;
         }
 
         for (i, arg) in self.args.iter().enumerate() {

@@ -17,7 +17,7 @@ impl Comment {
 
     pub fn fmt(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         for line in self.comment.lines() {
-            writeln!(fmt, "// {}", line)?;
+            writeln!(fmt, "// {line}")?;
         }
 
         Ok(())

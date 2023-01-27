@@ -51,7 +51,7 @@ impl Const {
     pub fn fmt(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         // write the documentation
         for doc in &self.documentation {
-            writeln!(fmt, "/// {}", doc)?;
+            writeln!(fmt, "/// {doc}")?;
         }
 
         // write the name

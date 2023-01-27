@@ -108,7 +108,7 @@ pub fn fmt_generics(generics: &[String], fmt: &mut Formatter<'_>) -> fmt::Result
             if i != 0 {
                 write!(fmt, ", ")?
             }
-            write!(fmt, "{}", ty)?;
+            write!(fmt, "{ty}")?;
         }
 
         write!(fmt, ">")?;

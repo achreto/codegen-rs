@@ -74,10 +74,10 @@ impl License {
         for line in lictext.lines() {
             if line == "{}" {
                 for c in &self.copyrights {
-                    writeln!(fmt, "// Copyright (c) {}", c)?;
+                    writeln!(fmt, "// Copyright (c) {c}")?;
                 }
             } else {
-                writeln!(fmt, "// {}", line)?;
+                writeln!(fmt, "// {line}")?;
             }
         }
 
@@ -86,7 +86,7 @@ impl License {
             LicenseType::Bsd => "BSD",
         };
         writeln!(fmt, "//")?;
-        writeln!(fmt, "// SPDX-License-Identifier: {}", spdx)?;
+        writeln!(fmt, "// SPDX-License-Identifier: {spdx}")?;
         writeln!(fmt, "//\n")?;
         Ok(())
     }

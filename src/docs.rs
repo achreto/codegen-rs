@@ -16,7 +16,7 @@ impl Docs {
 
     pub fn fmt(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         for line in self.docs.lines() {
-            writeln!(fmt, "/// {}", line)?;
+            writeln!(fmt, "/// {line}")?;
         }
 
         Ok(())

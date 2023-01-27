@@ -121,7 +121,7 @@ impl Impl {
     /// Formats the impl block using the given formatter.
     pub fn fmt(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         for m in self.macros.iter() {
-            writeln!(fmt, "{}", m)?;
+            writeln!(fmt, "{m}")?;
         }
         write!(fmt, "impl")?;
         fmt_generics(&self.generics[..], fmt)?;

@@ -68,7 +68,7 @@ impl Scope {
         let ty = ty.split("::").next().unwrap_or(ty);
         self.imports
             .entry(path.to_string())
-            .or_insert(IndexMap::new())
+            .or_default()
             .entry(ty.to_string())
             .or_insert_with(|| Import::new(path, ty))
     }
@@ -297,7 +297,7 @@ impl Scope {
                 Item::Enum(v) => v.fmt(fmt)?,
                 Item::Impl(v) => v.fmt(fmt)?,
                 Item::Raw(v) => {
-                    writeln!(fmt, "{}", v)?;
+                    writeln!(fmt, "{v}")?;
                 }
             }
         }
@@ -332,10 +332,10 @@ impl Scope {
 
                 if !tys.is_empty() {
                     if let Some(vis) = &vis {
-                        write!(fmt, "{} ", vis)?;
+                        write!(fmt, "{vis} ")?;
                     }
 
-                    write!(fmt, "use {}::", path)?;
+                    write!(fmt, "use {path}::")?;
 
                     match tys.len() {
                         0 => {}
@@ -349,7 +349,7 @@ impl Scope {
                                 if i != 0 {
                                     write!(fmt, ", ")?;
                                 }
-                                write!(fmt, "{}", ty)?;
+                                write!(fmt, "{ty}")?;
                             }
 
                             writeln!(fmt, "}};")?;
@@ -380,6 +380,6 @@ impl fmt::Display for Scope {
             ret.pop();
         }
 
-        write!(f, "{}", ret)
+        write!(f, "{ret}")
     }
 }

@@ -84,10 +84,10 @@ impl TypeDef {
         self.fmt_macros(fmt)?;
 
         if let Some(ref vis) = self.vis {
-            write!(fmt, "{} ", vis)?;
+            write!(fmt, "{vis} ")?;
         }
 
-        write!(fmt, "{} ", keyword)?;
+        write!(fmt, "{keyword} ")?;
         self.ty.fmt(fmt)?;
 
         if !parents.is_empty() {
@@ -109,7 +109,7 @@ impl TypeDef {
 
     fn fmt_allow(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         for allow in &self.allow {
-            writeln!(fmt, "#[allow({})]", allow)?;
+            writeln!(fmt, "#[allow({allow})]")?;
         }
 
         Ok(())
@@ -117,7 +117,7 @@ impl TypeDef {
 
     fn fmt_repr(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         if let Some(ref repr) = self.repr {
-            writeln!(fmt, "#[repr({})]", repr)?;
+            writeln!(fmt, "#[repr({repr})]")?;
         }
 
         Ok(())
@@ -131,7 +131,7 @@ impl TypeDef {
                 if i != 0 {
                     write!(fmt, ", ")?
                 }
-                write!(fmt, "{}", name)?;
+                write!(fmt, "{name}")?;
             }
 
             writeln!(fmt, ")]")?;
@@ -142,7 +142,7 @@ impl TypeDef {
 
     fn fmt_macros(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
         for m in self.macros.iter() {
-            writeln!(fmt, "{}", m)?;
+            writeln!(fmt, "{m}")?;
         }
         Ok(())
     }
