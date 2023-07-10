@@ -119,6 +119,12 @@ impl Function {
         self
     }
 
+    /// Add `mut self` as a function argument.
+    pub fn mut_arg_self(&mut self) -> &mut Self {
+        self.arg_self = Some("mut self".to_string());
+        self
+    }
+
     /// Add `&self` as a function argument.
     pub fn arg_ref_self(&mut self) -> &mut Self {
         self.arg_self = Some("&self".to_string());
