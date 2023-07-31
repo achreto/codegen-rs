@@ -13,7 +13,7 @@ documentation = "https://docs.rs/codegen-rs/"
 homepage = "https://github.com/neysofu/codegen-rs"
 repository = "https://github.com/neysofu/codegen-rs"
 readme = "README.md"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 indexmap = "1.0.2"
