@@ -20,9 +20,6 @@ pub struct Module {
     /// Visibility
     vis: Option<String>,
 
-    /// Module documentation
-    // docs: Option<Docs>,
-
     /// Contents of the module
     scope: Scope,
 }
